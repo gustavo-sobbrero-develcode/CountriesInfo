@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Button, Linking} from 'react-native';
 import {RegisterInput, Title} from './styles';
 import {Container, SubmitButton} from './styles';
+import {useLinkTo} from '@react-navigation/native';
 
 const INSERT_USER = gql`
   mutation Mutation($user: UserInput!) {
@@ -13,6 +14,7 @@ const INSERT_USER = gql`
 `;
 
 const Register = () => {
+  const linkTo = useLinkTo();
   const [adicionaUser] = useMutation(INSERT_USER);
 
   const [nome, setNome] = useState<string>('');
@@ -37,7 +39,8 @@ const Register = () => {
     }
   };
 
-  const Url_Ole = 'https://www.ole.com.ar/';
+  const Url_Insta = 'https://instagram.com';
+  // const Link_SendMail = ;
 
   return (
     <Container>
@@ -51,7 +54,22 @@ const Register = () => {
       <SubmitButton onPress={create}>
         <Title>Enviar</Title>
       </SubmitButton>
-      <Button title="Navegar" onPress={() => Linking.openURL(Url_Ole)} />
+      <Button
+        title="Navegar para tela Countries"
+        onPress={() => linkTo('/h')}
+      />
+      <Button
+        title="Navegar para URL externa"
+        onPress={() => Linking.openURL(Url_Insta)}
+      />
+      <Button
+        title="Realizar ligação telefônica"
+        onPress={() => Linking.openURL('tel:54981096835')}
+      />
+      <Button
+        title="Enviar SMS"
+        onPress={() => Linking.openURL('sms:54981096835')}
+      />
     </Container>
   );
 };

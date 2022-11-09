@@ -1,6 +1,7 @@
 import {gql, useQuery} from '@apollo/client';
+import {useLinkTo} from '@react-navigation/native';
 import React from 'react';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {ActivityIndicator, Button, FlatList, Text, View} from 'react-native';
 import {Container, Flag, HeaderContainer, LeftSide, Title} from './styles';
 
 export interface Country {
@@ -59,8 +60,9 @@ const HeaderComponent = () => {
   );
 };
 
-const Home = () => {
+const Countries = () => {
   const {data, loading} = useQuery(QUERY);
+  const linkTo = useLinkTo();
 
   return (
     <View
@@ -69,11 +71,18 @@ const Home = () => {
         height: '100%',
       }}>
       {!loading ? (
-        <FlatList
-          data={data?.countries}
-          renderItem={Country}
-          ListHeaderComponent={HeaderComponent}
-        />
+        <>
+          <Button
+            title="Navegar para tela Continents"
+            onPress={() => linkTo('/p')}
+          />
+
+          <FlatList
+            data={data?.countries}
+            renderItem={Country}
+            ListHeaderComponent={HeaderComponent}
+          />
+        </>
       ) : (
         <ActivityIndicator size={'large'} />
       )}
@@ -81,4 +90,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Countries;
