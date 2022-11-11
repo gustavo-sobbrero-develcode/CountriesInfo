@@ -24,7 +24,7 @@ const QUERY = gql`
     }
   }
 `;
-
+//a
 const Continent = ({item}: {item: Continent}) => {
   return (
     <Container>
